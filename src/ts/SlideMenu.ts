@@ -314,7 +314,29 @@ class SlideMenu {
 
       if (lastActiveUl) {
         lastActiveUl.style.display = 'none';
+        lastActiveUl.style.overflow = 'visible';
         lastActiveUl.classList.remove(SlideMenu.CLASS_NAMES.active);
+      }
+
+      const currentActiveSelector = `.${SlideMenu.CLASS_NAMES.active} `.repeat(this.level);
+      const currentActiveUl = this.menuElem.querySelector(`ul ${currentActiveSelector}`) as HTMLUListElement;
+      if (currentActiveUl) {
+        currentActiveUl.style.overflowY = 'auto';
+      }
+    });
+
+    this.menuElem.addEventListener('sm.forward-after', () => {
+      const lastActiveSelector = `.${SlideMenu.CLASS_NAMES.active} `.repeat(this.level - 1);
+      const lastActiveUl = this.menuElem.querySelector(`ul ${lastActiveSelector}`) as HTMLUListElement;
+
+      if (lastActiveUl) {
+        lastActiveUl.style.overflowY = 'visible';
+      }
+
+      const currentActiveSelector = `.${SlideMenu.CLASS_NAMES.active} `.repeat(this.level);
+      const currentActiveUl = this.menuElem.querySelector(`ul ${currentActiveSelector}`) as HTMLUListElement;
+      if (currentActiveUl) {
+        currentActiveUl.style.overflowY = 'auto';
       }
     });
   }
